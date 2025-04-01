@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Generator & Travel Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm w-full">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6">TRAVEL COIN GENERATOR</h1>
+        <div class="mb-4">
+            <label for="location" class="block text-left text-gray-700 mb-2">Enter Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter a new location" class="w-full p-3 border rounded-lg">
+            <button class="mt-4 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300" onclick="generateCoin()">Generate Coin</button>
+        </div>
+        <button class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition duration-300" onclick="getLocation()">Get My Location</button>
+        <div id="coins" class="text-xl font-semibold mb-4 text-gray-800">No coins generated yet</div>
+        <button class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-300" onclick="redeemCoins()">Redeem Coins</button>
+        <div id="qrcode" class="mt-6"></div>
+
+        <div class="mt-10">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">Places to Visit in India</h2>
+            <div id="accordion">
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('taj')">Taj Mahal, Agra</h3>
+                    <div id="taj" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://media.istockphoto.com/id/1722688269/photo/taj-mahal.jpg?s=1024x1024&w=is&k=20&c=g3Jcfq_VtpDbVAHSgbqz_HTykOsytJjRrc-TkCR9C5k=" alt="Taj Mahal" class="mb-2 rounded">
+                        One of the Seven Wonders of the World, known for its stunning architecture and historical significance.
+                    </div>
+                </div>
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('jaipur')">Jaipur, Rajasthan</h3>
+                    <div id="jaipur" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://images.unsplash.com/photo-1524229648276-e66561fe45a9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8amFpcHVyfGVufDB8fDB8fHww" alt="Jaipur" class="mb-2 rounded">
+                        Known as the Pink City, famous for its palaces, forts, and vibrant culture.
+                    </div>
+                </div>
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('goa')">Goa</h3>
+                    <div id="goa" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://media.istockphoto.com/id/521007670/photo/beautiful-view-of-sunset-beach-in-goa.jpg?s=1024x1024&w=is&k=20&c=P3QoDrkdARPzaDZNL7VO5F2qX0oxw3cmUSi0i5LU_d4=" alt="Goa" class="mb-2 rounded">
+                        Renowned for its beaches, nightlife, and Portuguese heritage.
+                    </div>
+                </div>
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('kerala')">Kerala</h3>
+                    <div id="kerala" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8fA%3D%3D" alt="Kerala" class="mb-2 rounded">
+                        Known for its backwaters, houseboats, and serene natural beauty.
+                    </div>
+                </div>
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('varanasi')">Varanasi, Uttar Pradesh</h3>
+                    <div id="varanasi" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://as2.ftcdn.net/v2/jpg/04/08/25/05/1000_F_408250543_MVaEVGeWxb4FiFy7mEGKj8nfYkwoAZON.jpg" alt="Varanasi" class="mb-2 rounded">
+                        One of the oldest cities in the world, known for its spiritual significance and Ghats on the River Ganges.
+                    </div>
+                </div>
+                <div class="accordion-item mb-2">
+                    <h3 class="accordion-title bg-blue-500 text-white p-3 rounded cursor-pointer" onclick="toggleAccordion('leh-ladakh')">Leh-Ladakh</h3>
+                    <div id="leh-ladakh" class="accordion-content hidden p-3 bg-gray-100 rounded border border-gray-300">
+                        <img src="https://media.istockphoto.com/id/1075237796/photo/hiker-man-rising-arms-adventure-and-freedom-concept-at-view-of-landscape-at-leh-ladakh.jpg?s=1024x1024&w=is&k=20&c=zBl47ytXqX3poMWvDRcRl4IxHCBb-zX3h74_A0liLjs=" alt="Leh-Ladakh" class="mb-2 rounded">
+                        Famous for its stunning landscapes, monasteries, and adventure tourism.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="location-coordinates" class="mt-4"></div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('hidden');
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const location = `${position.coords.latitude}, ${position.coords.longitude}`;
+            document.getElementById('location').value = location;
+            document.getElementById('location-coordinates').innerText = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+            generateCoinWithLocation(location);
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        function generateCoinWithLocation(location) {
+            if (location && !generatedLocations.has(location)) {
+                generatedLocations.add(location);
+                coins++;
+                document.getElementById('coins').innerText = `Coins: ${coins}`;
+            } else {
+                alert('This location already generated a coin or location is empty.');
+            }
+        }
+    </script>
+</body>
+</html>
